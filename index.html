@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ネコを守れ - Pygame in Browser</title>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js"></script>
+</head>
+<body>
+    <h1>ネコを守れ - Pygame in Browser</h1>
+    <div id="pygame-container"></div>
+    <script type="text/javascript">
+        async function loadPyodideAndRun() {
+            let pyodide = await loadPyodide();
+            await pyodide.loadPackage("pygame");
+            await pyodide.loadPackage("micropip");
+
+            const code = await (await fetch('ネコを守れver.1.0.py')).text();
+            pyodide.runPythonAsync(code).catch((err) => console.error(err));
+        }
+
+        loadPyodideAndRun();
+    </script>
+</body>
+</html>
